@@ -1,0 +1,23 @@
+{
+  "name": "xnosql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "config": "^1.25.1",
+    "connect-flash": "^0.1.1",
+    "express": "^4.15.2",
+    "express-session": "^1.15.1",
+    "moment": "^2.17.1",
+    "mongodb": "^2.2.25",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "tracer": "^0.8.7"
+  },
+  "author": "cheneyxu",
+  "license": "ISC"
+}

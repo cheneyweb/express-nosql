@@ -1,0 +1,11 @@
+{
+    "db": {
+        "url": "mongodb://localhost:27017/test"
+    },
+    "log": {
+        "level": "info"
+    },
+    "server": {
+        "port": 9005
+    }
+}
