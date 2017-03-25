@@ -3,9 +3,9 @@
         "url": "mongodb://localhost:27017/test"
     },
     "log": {
-        "level": "info"
+        "level": "warn"
     },
     "server": {
-        "port": 9005
+        "port": 8083
     }
 }
