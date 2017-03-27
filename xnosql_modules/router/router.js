@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 var passport = require(__dirname + '/../auth/passport_config.js');
 // 持久化相关
-var MongoClient = require('mongodb').MongoClient;
-var dburl = require('config').get('db').get('url');
+// var MongoClient = require('mongodb').MongoClient;
+// var dburl = require('config').get('db').get('url');
+var mongodb = require(__dirname + '/../mongodb/mongodb.js');
 var ObjectId = require('mongodb').ObjectID;
 // 日志相关
 var log = require('tracer').colorConsole({ level: require('config').get('log').level });
@@ -12,56 +13,56 @@ var log = require('tracer').colorConsole({ level: require('config').get('log').l
 // 创建实体对象
 router.post('/xnosql/*/create', function(req, res) {
     req.modelName = req.path.split('/')[2];
-    MongoClient.connect(dburl, function(err, db) {
-        db.collection(req.modelName).insertOne(req.body, function(err, r) {
-            res.send(r.insertedId);
-            db.close();
-        });
+    let r = mongodb.insert(req.modelName, req.body);
+    r.then(result => {
+        res.send(result.insertedId);
+    }).catch(error => {
+        log.err(error.message);
     });
 });
 // 更新实体对象(根据ID替换)
 router.post('/xnosql/*/update', function(req, res) {
     req.modelName = req.path.split('/')[2];
-    MongoClient.connect(dburl, function(err, db) {
-        var query = { '_id': ObjectId(req.body._id) };
-        delete req.body._id;
-        db.collection(req.modelName).updateOne(query, { $set: req.body }, function(err, r) {
-            res.send('Y');
-            db.close();
-        });
+    var query = { '_id': ObjectId(req.body._id) };
+    delete req.body._id;
+    let r = mongodb.update(req.modelName, query, { $set: req.body });
+    r.then(result => {
+        res.send(result.result.nModified.toString());
+    }).catch(error => {
+        log.error(error.message);
     });
 });
 // 复杂查询实体对象
 router.post('/xnosql/*/query', function(req, res) {
     req.modelName = req.path.split('/')[2];
-    MongoClient.connect(dburl, function(err, db) {
-        db.collection(req.modelName).find(req.body).toArray(function(err, r) {
-            res.send(r);
-            db.close();
-        });
+    let r = mongodb.find(req.modelName,req.body);
+    r.then(result => {
+        res.send(result);
+    }).catch(error => {
+        log.error(error.message);
     });
 });
 // 销毁实体对象(删除时需要登录认证权限)
 router.get('/xnosql/*/destroy/:id', function(req, res) {
     req.modelName = req.path.split('/')[2];
-    MongoClient.connect(dburl, function(err, db) {
-        var query = { '_id': ObjectId(req.params.id) };
-        db.collection(req.modelName).remove(query, function(err, r) {
-            res.send('Y');
-            db.close();
-        });
+    var query = { '_id': ObjectId(req.params.id) };
+    let r = mongodb.remove(req.modelName,query);
+    r.then(result => {
+        res.send(result.result.n.toString());
+    }).catch(error => {
+        log.error(error.message);
     });
 });
 // 获取实体对象
 router.get('/xnosql/*/get/:id', function(req, res) {
     req.modelName = req.path.split('/')[2];
-    MongoClient.connect(dburl, function(err, db) {
-        log.info(req.params.id);
-        var query = { '_id': ObjectId(req.params.id) };
-        db.collection(req.modelName).findOne(query, function(err, r) {
-            res.send(r);
-            db.close();
-        });
+    log.info(req.params.id);
+    var query = { '_id': ObjectId(req.params.id) };
+    let r = mongodb.findOne(req.modelName,query);
+    r.then(result => {
+        res.send(result);
+    }).catch(error => {
+        log.error(error.message);
     });
 });
 
