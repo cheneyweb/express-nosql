@@ -9,9 +9,18 @@ NoSql服务应用，快速构建轻量小巧灵活的NoSql服务
 
 框架目录结构（后台）
 >
-    xmodel
-    	src/app.js——系统入口
-    	src/config——系统环境配置模块
+	├── README.md
+	├── app.js (应用服务入口)
+	├── config (应用服务配置)
+	│   ├── default.json
+	│   └── production.json
+	├── node_modules
+	├── package.json
+	├── src
+	└── xnosql_modules
+	    ├── auth
+	    ├── mongodb
+	    └── router
 
 RESTful规则
 >
@@ -57,4 +66,4 @@ RESTful规则
 >
 	2017.03.25:无后端理念确认，1.0版本推出
 	2017.03.27:使用async...await封装mongodb使用
-	
+	2017.04.01:为支持ES7做准备，代码优化
