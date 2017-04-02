@@ -1,13 +1,12 @@
-var MongoClient = require('mongodb').MongoClient
-var dburl = require('config').get('db').get('url')
-var log = require('tracer').colorConsole({ level: require('config').get('log').level })
-
+const MongoClient = require('mongodb').MongoClient
+const log = require('tracer').colorConsole()
 
 var mongodb = {
+    dburl:'',
     insert: async function(collectionName, obj) {
         let db, result
         try {
-            db = await MongoClient.connect(dburl)
+            db = await MongoClient.connect(this.dburl)
             result = await db.collection(collectionName).insertOne(obj)
             db.close()
         } catch (e) {
@@ -18,7 +17,7 @@ var mongodb = {
     update: async function(collectionName, query, obj) {
         let db, result
         try {
-            db = await MongoClient.connect(dburl)
+            db = await MongoClient.connect(this.dburl)
             result = await db.collection(collectionName).updateOne(query, obj)
             db.close()
         } catch (e) {
@@ -29,7 +28,7 @@ var mongodb = {
     find: async function(collectionName, query) {
         let db, result
         try {
-            db = await MongoClient.connect(dburl)
+            db = await MongoClient.connect(this.dburl)
             result = await db.collection(collectionName).find(query).toArray()
             db.close()
         } catch (e) {
@@ -40,7 +39,7 @@ var mongodb = {
     remove: async function(collectionName, query) {
         let db, result
         try {
-            db = await MongoClient.connect(dburl)
+            db = await MongoClient.connect(this.dburl)
             result = await db.collection(collectionName).remove(query)
             db.close()
         } catch (e) {
@@ -51,7 +50,7 @@ var mongodb = {
     findOne: async function(collectionName, query) {
         let db, result
         try {
-            db = await MongoClient.connect(dburl)
+            db = await MongoClient.connect(this.dburl)
             result = await db.collection(collectionName).findOne(query)
             db.close()
         } catch (e) {

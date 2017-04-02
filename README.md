@@ -1,11 +1,20 @@
 # xnosql
-NoSql服务应用，快速构建轻量小巧灵活的NoSql服务
+NoSql服务应用，基于x-nosql中间件，快速构建轻量小巧灵活的NoSql服务
 
-使用说明
+整体框架使用说明
 >
 	1,config/default.js中设置数据库连接，执行npm install
 	2,node app.js(启动)
 
+单独使用x-nosql中间件(任意express应用均可集成)
+>
+	1, npm install x-nosql --save
+
+	2, let nosql = require('x-nosql')
+
+	3, xnosql.dburl = mongodb://localhost:27017/test
+
+	4, app.use('/xnosql/', xnosql)
 
 框架目录结构（后台）
 >
@@ -18,9 +27,7 @@ NoSql服务应用，快速构建轻量小巧灵活的NoSql服务
 	├── package.json
 	├── src
 	└── xnosql_modules
-	    ├── auth
-	    ├── mongodb
-	    └── router
+	    └── x-nosql
 
 RESTful规则
 >
@@ -67,3 +74,4 @@ RESTful规则
 	2017.03.25:无后端理念确认，1.0版本推出
 	2017.03.27:使用async...await封装mongodb使用
 	2017.04.01:为支持ES7做准备，代码优化
+	2017.04.02:以express中间件的形式提供服务，更加高内聚低耦合

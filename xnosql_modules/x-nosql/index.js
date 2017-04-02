@@ -1,15 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const passport = require(__dirname + '/../auth/passport_config.js')
 // 持久化相关
-const mongodb = require(__dirname + '/../mongodb/mongodb.js')
+const mongodb = require(__dirname + '/mongodb/mongodb.js')
 const ObjectId = require('mongodb').ObjectID
 // 日志相关
-const log = require('tracer').colorConsole({ level: require('config').get('log').level })
+const log = require('tracer').colorConsole()
 
 // 配置路由与实体对象的绑定
 // 创建实体对象
 router.post('/*/create', function(req, res) {
+    mongodb.dburl = router.dburl
     req.modelName = req.path.split('/')[1]
     let r = mongodb.insert(req.modelName, req.body)
     r.then(result => {
@@ -20,6 +20,7 @@ router.post('/*/create', function(req, res) {
 })
 // 更新实体对象(根据ID替换)
 router.post('/*/update', function(req, res) {
+    mongodb.dburl = router.dburl
     req.modelName = req.path.split('/')[1]
     var query = { '_id': ObjectId(req.body._id) }
     delete req.body._id
@@ -32,6 +33,7 @@ router.post('/*/update', function(req, res) {
 })
 // 复杂查询实体对象
 router.post('/*/query', function(req, res) {
+    mongodb.dburl = router.dburl
     req.modelName = req.path.split('/')[1]
     let r = mongodb.find(req.modelName, req.body)
     r.then(result => {
@@ -42,6 +44,7 @@ router.post('/*/query', function(req, res) {
 })
 // 销毁实体对象(删除时需要登录认证权限)
 router.get('/*/destroy/:id', function(req, res) {
+    mongodb.dburl = router.dburl
     req.modelName = req.path.split('/')[1]
     var query = { '_id': ObjectId(req.params.id) }
     let r = mongodb.remove(req.modelName, query)
@@ -53,6 +56,7 @@ router.get('/*/destroy/:id', function(req, res) {
 })
 // 获取实体对象
 router.get('/*/get/:id', function(req, res) {
+    mongodb.dburl = router.dburl
     req.modelName = req.path.split('/')[1]
     log.info(req.params.id)
     var query = { '_id': ObjectId(req.params.id) }
@@ -62,17 +66,6 @@ router.get('/*/get/:id', function(req, res) {
     }).catch(error => {
         log.error(error.message)
     })
-})
-
-// 登录认证
-router.post('/user/login', passport.authenticate('local', { failureFlash: true }), function(req, res) {
-    // log.info(req.user)
-    res.send("success")
-})
-
-// 认证测试
-router.get('/user/testauth', passport.authenticateMiddleware(), function(req, res) {
-    res.send('允许访问')
 })
 
 // function ucfirst(str) {

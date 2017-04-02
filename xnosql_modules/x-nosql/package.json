@@ -1,0 +1,21 @@
+{
+  "name": "x-nosql",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "nosql",
+    "mongodb"
+  ],
+  "dependencies": {
+    "express": "^4.15.2",
+    "mongodb": "^2.2.25",
+    "tracer": "^0.8.7"
+  },
+  "author": "cheneyxu",
+  "license": "ISC"
+}

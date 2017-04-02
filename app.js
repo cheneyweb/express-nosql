@@ -5,11 +5,9 @@ const controllerRoot = config.get('server').controllerRoot
 // 应用服务
 const express = require('express')
 const bodyParser = require('body-parser')
-const router = require(__dirname + '/xnosql_modules/router/router.js')
+const xnosql = require(__dirname + '/xnosql_modules/x-nosql/index.js')
 // 认证相关
 const expressSession = require('express-session')
-const passport = require(__dirname + '/xnosql_modules/auth/passport_config.js')
-const flash = require('connect-flash')
 // 日志相关
 const log = require('tracer').colorConsole({ level: require('config').get('log').level })
 
@@ -22,9 +20,6 @@ app.use(expressSession({
     saveUninitialized: false
 }))
 // 初始化调用 passport
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(flash())
 // 使用路由统一控制(目前支持以下5种RESTful请求)
 /**
  * [POST]http://host:port/xnosql/model/create
@@ -33,7 +28,8 @@ app.use(flash())
  * [GET]http://host:port/xnosql/model/get/:id
  * [GET]http://host:port/xnosql/model/destroy/:id
  */
-app.use(controllerRoot, router);
+xnosql.dburl = config.db.url
+app.use(controllerRoot, xnosql);
 
 // 开始服务监听
 app.listen(port, function() {
