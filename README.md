@@ -12,7 +12,7 @@ NoSql服务应用，基于x-nosql中间件，快速构建轻量小巧灵活的No
 
 	2, let nosql = require('x-nosql')
 
-	3, xnosql.dburl = mongodb://localhost:27017/test
+	3, xnosql.dburl = 'mongodb://localhost:27017/test'
 
 	4, app.use('/xnosql/', xnosql)
 
