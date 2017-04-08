@@ -5,7 +5,7 @@ const controllerRoot = config.get('server').controllerRoot
 // 应用服务
 const express = require('express')
 const bodyParser = require('body-parser')
-const xnosql = require(__dirname + '/xnosql_modules/x-nosql/index.js')
+const xnosql = require(__dirname + '/xnosql_modules/express-xnosql/index.js')
 // 认证相关
 const expressSession = require('express-session')
 // 日志相关

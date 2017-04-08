@@ -1,5 +1,5 @@
-# xnosql
-NoSql服务应用，基于x-nosql中间件，快速构建轻量小巧灵活的NoSql服务
+# express-xnosql
+NoSql服务应用，基于express-xnosql中间件，快速构建轻量小巧灵活的NoSql服务
 
 整体框架使用说明
 >
@@ -27,7 +27,7 @@ NoSql服务应用，基于x-nosql中间件，快速构建轻量小巧灵活的No
 	├── package.json
 	├── src
 	└── xnosql_modules
-	    └── x-nosql
+	    └── express-xnosql
 
 RESTful规则
 >
