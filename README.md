@@ -6,11 +6,11 @@ NoSql服务应用，基于express-xnosql中间件，快速构建轻量小巧灵�
 	1,config/default.js中设置数据库连接，执行npm install
 	2,node app.js(启动)
 
-单独使用x-nosql中间件(任意express应用均可集成)
+单独使用express-xnosql中间件(任意express应用均可集成)
 >
-	1, npm install x-nosql --save
+	1, npm install express-xnosql --save
 
-	2, let nosql = require('x-nosql')
+	2, let xnosql = require('exoress-xnosql')
 
 	3, xnosql.dburl = 'mongodb://localhost:27017/test'
 
