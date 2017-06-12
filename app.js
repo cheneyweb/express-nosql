@@ -28,8 +28,8 @@ app.use(expressSession({
  * [GET]http://host:port/xnosql/model/get/:id
  * [GET]http://host:port/xnosql/model/destroy/:id
  */
-xnosql.dburl = config.db.url
-app.use(controllerRoot, xnosql);
+xnosql.initConnect(config.db.url)
+app.use(controllerRoot, xnosql)
 
 // 开始服务监听
 app.listen(port, function() {
