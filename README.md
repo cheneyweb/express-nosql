@@ -8,11 +8,11 @@ NoSql服务应用，基于express-xnosql中间件，快速构建轻量小巧灵�
 
 单独使用express-xnosql中间件(任意express应用均可集成)
 >
-	1, npm install express-xnosql --save
+	1, npm install express-xnosql
 
-	2, let xnosql = require('exoress-xnosql')
+	2, const xnosql = require('exoress-xnosql')
 
-	3, xnosql.dburl = 'mongodb://localhost:27017/test'
+	3, xnosql.initConnect(config.db.url)
 
 	4, app.use('/xnosql/', xnosql)
 
@@ -41,14 +41,14 @@ RESTful规则
 >
 	以一个用户模块为例，需要对用户进行增删改查:
 	需要注意的是默认自动创建id,createdAt,updatedAt三个字段，无须人工处理
-	[POST]http://host:port/xnosql/user_model/create
+	[POST]http://localhost:port/xnosql/user_model/create
 		post body:{"username":"cheney","password":"123"}
-	[POST]http://host:port/xnosql/user_model/update
+	[POST]http://localhost:port/xnosql/user_model/update
 		post body:{id:1,"username":"cheney","password":"456"}
-	[POST]http://host:port/xnosql/user_model/query
+	[POST]http://localhost:port/xnosql/user_model/query
 		post body:{"username":"cheney","password":"123"}
-	[GET]http://host:port/xnosql/user_model/get/1
-	[GET]http://host:port/xnosql/user_model/destroy/1
+	[GET]http://localhost:port/xnosql/user_model/get/1
+	[GET]http://localhost:port/xnosql/user_model/destroy/1
 
 框架整合（开源力量）
 >
@@ -77,3 +77,4 @@ RESTful规则
 	2017.04.02:以express中间件的形式提供服务，更加高内聚低耦合
 	2017.04.08:以中间件的形式重命名
 	2017.06.12:重构数据库连接方式
+	2017.12.05:更新所有依赖包

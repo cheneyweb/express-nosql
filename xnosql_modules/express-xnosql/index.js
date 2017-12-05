@@ -16,62 +16,82 @@ router.initConnect = function (dburl) {
         global.mongodb = mongodb
     })
 }
-
 // 配置路由与实体对象的绑定
 // 创建实体对象
-router.post('/:modelName/create', function (req, res) {
-    // mongodb.dburl = router.dburl
-    let r = mongodb.insert(req.params.modelName, req.body)
-    r.then(result => {
-        res.send(result.insertedId)
-    }).catch(error => {
-        log.err(error.message)
-    })
+router.post('/:model_name/create', async function (req, res) {
+    try {
+        const result = await mongodb.insert(req.params.model_name, req.body)
+        res.send(okRes(result.insertedId))
+    } catch (error) {
+        log.error(error)
+        res.send(errRes('路由服务异常'))
+    }
 })
 // 更新实体对象(根据ID替换)
-router.post('/:modelName/update', function (req, res) {
-    // mongodb.dburl = router.dburl
-    var query = { '_id': ObjectId(req.body._id) }
-    delete req.body._id
-    let r = mongodb.update(req.params.modelName, query, { $set: req.body })
-    r.then(result => {
-        res.send(result.result.nModified.toString())
-    }).catch(error => {
-        log.error(error.message)
-    })
+router.post('/:model_name/update', async function (req, res) {
+    try {
+        const query = { '_id': ObjectId(req.body._id) }
+        delete req.body._id
+        const result = await mongodb.update(req.params.model_name, query, { $set: req.body })
+        res.send(okRes(result.result.nModified.toString()))
+    } catch (error) {
+        log.error(error)
+        res.send(errRes('路由服务异常'))
+    }
 })
 // 复杂查询实体对象
-router.post('/:modelName/query', function (req, res) {
-    // mongodb.dburl = router.dburl
-    let r = mongodb.find(req.params.modelName, req.body)
-    r.then(result => {
-        res.send(result)
-    }).catch(error => {
-        log.error(error.message)
-    })
+router.post('/:model_name/query', async function (req, res) {
+    try {
+        const result = await mongodb.find(req.params.model_name, req.body)
+        res.send(okRes(result))
+    } catch (error) {
+        log.error(error)
+        res.send(errRes('路由服务异常'))
+    }
 })
 // 销毁实体对象(删除时需要登录认证权限)
-router.get('/:modelName/destroy/:id', function (req, res) {
-    // mongodb.dburl = router.dburl
-    req.modelName = req.path.split('/')[1]
-    var query = { '_id': ObjectId(req.params.id) }
-    let r = mongodb.remove(req.params.modelName, query)
-    r.then(result => {
-        res.send(result.result.n.toString())
-    }).catch(error => {
-        log.error(error.message)
-    })
+router.get('/:model_name/destroy/:id', async function (req, res) {
+    try {
+        const query = { '_id': ObjectId(req.params.id) }
+        const result = await mongodb.remove(req.params.model_name, query)
+        res.send(okRes(result.result.n.toString()))
+    } catch (error) {
+        log.error(error)
+        res.send(errRes('路由服务异常'))
+    }
 })
 // 获取实体对象
-router.get('/:modelName/get/:id', function (req, res) {
-    // mongodb.dburl = router.dburl
-    var query = { '_id': ObjectId(req.params.id) }
-    let r = mongodb.findOne(req.params.modelName, query)
-    r.then(result => {
-        res.send(result)
-    }).catch(error => {
-        log.error(error.message)
-    })
+router.get('/:model_name/get/:id', async function (req, res) {
+    try {
+        const query = { '_id': ObjectId(req.params.id) }
+        const result = await mongodb.findOne(req.params.model_name, query)
+        res.send(okRes(result))
+    } catch (error) {
+        log.error(error)
+        res.send(errRes('路由服务异常'))
+    }
 })
+
+function okRes(res) {
+    return { err: false, res: res }
+}
+function errRes(res) {
+    return { err: true, res: res }
+}
+
+// function ucfirst(str) {
+//     str = str.toLowerCase();
+//     str = str.replace(/\b\w+\b/g, function(word) {
+//         return word.substring(0, 1).toUpperCase() + word.substring(1);
+//     });
+//     return str;
+// }
+
+// function transJavaStyle(str) {
+//     var re = /_(\w)/g;
+//     return str.replace(re, function($0, $1) {
+//         return $1.toUpperCase();
+//     });
+// }
 
 module.exports = router
