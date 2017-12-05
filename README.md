@@ -1,6 +1,8 @@
 # express-xnosql
 NoSql服务应用，基于express-xnosql中间件，快速构建轻量小巧灵活的NoSql服务
 
+[传送门：XServer官网文档](http://xserver.top)
+
 整体框架使用说明
 >
 	1,config/default.js中设置数据库连接，执行npm install
@@ -52,16 +54,11 @@ RESTful规则
 
 框架整合（开源力量）
 >
-    "body-parser": "^1.17.1",
-    "config": "^1.25.1",
-    "connect-flash": "^0.1.1",
-    "express": "^4.15.2",
-    "express-session": "^1.15.1",
-    "moment": "^2.17.1",
-    "mongodb": "^2.2.25",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
-    "tracer": "^0.8.7"
+    "body-parser": "^1.18.2",
+    "config": "^1.28.1",
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33",
+    "tracer": "^0.8.11"
 
 帮助联系
 >
