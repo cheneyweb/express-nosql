@@ -1,7 +1,7 @@
 # express-xnosql
 NoSql服务应用，基于express-xnosql中间件，快速构建轻量小巧灵活的NoSql服务
 
-[传送门：XServer官网文档](http://xserver.top)
+[传送门：XServer官网文档](http://www.xserver.top)
 
 整体框架使用说明
 >
@@ -51,14 +51,6 @@ RESTful规则
 		post body:{"username":"cheney","password":"123"}
 	[GET]http://localhost:port/xnosql/user_model/get/1
 	[GET]http://localhost:port/xnosql/user_model/destroy/1
-
-框架整合（开源力量）
->
-    "body-parser": "^1.18.2",
-    "config": "^1.28.1",
-    "express": "^4.16.2",
-    "mongodb": "^2.2.33",
-    "tracer": "^0.8.11"
 
 帮助联系
 >
