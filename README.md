@@ -14,9 +14,7 @@ NoSql服务应用，基于express-xnosql中间件，快速构建轻量小巧灵�
 
 	2, const xnosql = require('exoress-xnosql')
 
-	3, xnosql.initConnect(config.db.url)
-
-	4, app.use('/xnosql/', xnosql)
+	3, xnosql.init(app, config.server)
 
 框架目录结构（后台）
 >
@@ -36,6 +34,7 @@ RESTful规则
 	[POST]http://host:port/xnosql/MODEL/create
 	[POST]http://host:port/xnosql/MODEL/update
 	[POST]http://host:port/xnosql/MODEL/query
+	[POST]http://localhost:3636/xnosql/MODEL/page
 	[GET]http://host:port/xnosql/MODEL/get/:id
 	[GET]http://host:port/xnosql/MODEL/destroy/:id
 
@@ -67,3 +66,4 @@ RESTful规则
 	2017.04.08:以中间件的形式重命名
 	2017.06.12:重构数据库连接方式
 	2017.12.05:更新所有依赖包
+	2018.05.03:精简更新所有依赖，全新版本
