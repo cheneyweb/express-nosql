@@ -53,7 +53,7 @@ RESTful规则
 
 帮助联系
 >
-	作者:cheneyxu，chenxingling
+	作者:cheneyxu
 	邮箱:457299596@qq.com
 	QQ:457299596
 
