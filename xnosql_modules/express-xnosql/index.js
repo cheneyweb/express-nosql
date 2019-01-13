@@ -43,6 +43,21 @@ router.init = function (app, options) {
 }
 // 配置路由与实体对象的绑定
 // 创建实体对象
+router.post('/:model_name/insert', async function (req, res, next) {
+    try {
+        const result = await mongodb.insert(req.params.model_name, req.body)
+        if (router.afterRouterArr.indexOf(req.params.model_name) != -1) {
+            res.result = okRes(result.insertedId)
+        } else {
+            res.send(okRes(result.insertedId))
+        }
+        return next()
+    } catch (error) {
+        log.error(error)
+        res.send(errRes('路由服务异常'))
+    }
+})
+// 创建实体对象
 router.post('/:model_name/create', async function (req, res, next) {
     try {
         const result = await mongodb.insert(req.params.model_name, req.body)
@@ -82,6 +97,22 @@ router.post('/:model_name/query', async function (req, res, next) {
             res.result = okRes(result)
         } else {
             res.send(okRes(result))
+        }
+        return next()
+    } catch (error) {
+        log.error(error)
+        res.send(errRes('路由服务异常'))
+    }
+})
+// 销毁实体对象(删除时需要登录认证权限)
+router.get('/:model_name/delete/:id', async function (req, res, next) {
+    try {
+        const query = { '_id': ObjectId(req.params.id) }
+        const result = await mongodb.remove(req.params.model_name, query)
+        if (router.afterRouterArr.indexOf(req.params.model_name) != -1) {
+            res.result = okRes(result.result.n.toString())
+        } else {
+            res.send(okRes(result.result.n.toString()))
         }
         return next()
     } catch (error) {
