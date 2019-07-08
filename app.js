@@ -19,7 +19,7 @@ xnosql.init(app, config.server)
 // 开始服务监听
 app.listen(port)
 log.info(`XNosql应用启动【执行环境:${process.env.NODE_ENV},端口:${port}】`)
-log.info(`[POST]http://localhost:${port}/xnosql/MODEL/insert`)
+log.info(`[POST]http://localhost:${port}/xnosql/MODEL/create`)
 log.info(`[POST]http://localhost:${port}/xnosql/MODEL/update`)
 log.info(`[POST]http://localhost:${port}/xnosql/MODEL/query`)
 log.info(`[POST]http://localhost:${port}/xnosql/MODEL/page`)

@@ -1,6 +1,6 @@
 {
   "name": "express-xnosql",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "NoSql服务应用中间件，快速构建轻量小巧灵活的NoSql服务",
   "main": "index.js",
   "scripts": {
@@ -12,8 +12,8 @@
     "mongodb"
   ],
   "dependencies": {
-    "express": "^4.16.4",
-    "mongodb": "^3.1.10",
+    "express": "^4.17.1",
+    "mongodb": "^3.2.7",
     "tracer": "^0.9.8"
   },
   "author": "cheneyxu",
